@@ -13,7 +13,9 @@ const {
 // 生成 express.Router的实例
 const router = express.Router();
 
+
 // 定义贴子相关的路由
+// 获取
 router.get("/",index)
 
 
