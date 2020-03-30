@@ -20,15 +20,18 @@ const router = express.Router();
 // 定义贴子相关的路由
 // 获取
 /**
- * @api {get} /posts 获取帖子列表
- * @apiName  index
+ * @api {get} /posts 查询帖子
  * @apiGroup  Post
  *
+ * @apiParam (query) {String} pageNum=1  页码<可选>
+ * @apiParam (query) {String}  pageSize=2  每页显示条数 <可选>
  *
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
- * @apiSuccess {Array}   data  帖子数组
+ * @apiSuccess {Object}   data  数据
+ * @apiSuccess {Array}   data[list]  帖子数据
+ *  @apiSuccess {Number}   data[totalPage]  总的页数
  */
 
 router.get("/",index)

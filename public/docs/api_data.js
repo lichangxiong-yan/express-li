@@ -1,5 +1,78 @@
 define({ "api": [
   {
+    "type": "get",
+    "url": "/posts",
+    "title": "查询帖子",
+    "group": "Post",
+    "parameter": {
+      "fields": {
+        "query": [
+          {
+            "group": "query",
+            "type": "String",
+            "optional": false,
+            "field": "pageNum",
+            "defaultValue": "1",
+            "description": "<p>页码&lt;可选&gt;</p>"
+          },
+          {
+            "group": "query",
+            "type": "String",
+            "optional": false,
+            "field": "pageSize",
+            "defaultValue": "2",
+            "description": "<p>每页显示条数 &lt;可选&gt;</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误状态码</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误消息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data[list]",
+            "description": "<p>帖子数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data[totalPage]",
+            "description": "<p>总的页数</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routers/postRouter.js",
+    "groupTitle": "Post",
+    "name": "GetPosts"
+  },
+  {
     "type": "post",
     "url": "http://localhost:3000/posts",
     "title": "创建一个帖子",
@@ -71,43 +144,6 @@ define({ "api": [
             "optional": false,
             "field": "msg",
             "description": "<p>错误消息</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routers/postRouter.js",
-    "groupTitle": "Post"
-  },
-  {
-    "type": "get",
-    "url": "/posts",
-    "title": "获取帖子列表",
-    "name": "index",
-    "group": "Post",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "code",
-            "description": "<p>错误状态码</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "msg",
-            "description": "<p>错误消息</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "data",
-            "description": "<p>帖子数组</p>"
           }
         ]
       }

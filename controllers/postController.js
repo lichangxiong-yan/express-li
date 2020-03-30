@@ -35,11 +35,33 @@ const PostModel = require("../models/postModels")
 // 查询帖子列表   二
 exports.index= async (req,res) => {
   // res.send("获取帖子列表")
+  //获取起前端传递过来的分页的数据  pageNum、pageSize
+  const pageNum = parseInt(req.query.pageNum)   || 1  //  页码 当前是第几页  如果前端没传就用1
+  const pageSize = parseInt(req.query.pageSize )  ||2  //每一页显示的条数，如果没有传数据 就用默认2
+  
+  //查询数据库 Model.find().skip((pageNum -1 ) * pageSize).limit(pageSize)
+  const data= await PostModel.find()
+  .skip((pageNum - 1) * pageSize)
+  .limit(pageSize)
 
-   //使用CatModel.find()  做查询数据库的操作
- 
-   const data =await PostModel.find();
-   res.send({code:0,msg:"成功",data:data})
+    //前端还需要知道一共有多少也  需要后台告诉他
+    // 多少页  totalPage =Math.ceil(总条数  / 每页显示的条数) =Math.ceil( 总条数/pageSize)
+    // 先计算出总条数 total
+   const total = await  PostModel.find().countDocuments()  //因为数据都是异步的操作 所以要用 await
+    // console.log(total)
+    // 在计算出  totalPage
+    const totalPage  = Math.ceil(total/pageSize)
+
+
+    //响应
+   res.send({
+     code:0,
+     msg:"成功",
+     data:{
+       list:data,
+       totalPage:totalPage
+     }
+    })
 
  
 }
