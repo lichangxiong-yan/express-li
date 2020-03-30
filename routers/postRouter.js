@@ -25,7 +25,7 @@ const router = express.Router();
  *
  * @apiParam (query) {String} pageNum=1  页码<可选>
  * @apiParam (query) {String}  pageSize=2  每页显示条数 <可选>
- *
+ *@apiParam (query) {String} title 搜索关键字<可选>
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息

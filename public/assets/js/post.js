@@ -4,16 +4,16 @@ $(function() {
   var pageNum = 1; // 当前页码数
   var pageSize = 5; // 每页显示条数
   var totalPage = 1; // 总的页数
-  var searchTitle = ""; // 标题搜索关键字
+  var searchTitle = ""; // 标题搜索关键字 默认为空
 
   // 定义一个 getData 的方法专门去发送 ajax 请求获取数据
   function getData() {
     $.get(
       "http://localhost:3000/posts",
       {
-        pageNum: pageNum,
-        pageSize: pageSize,
-        title: searchTitle
+        pageNum: pageNum,  //页码
+        pageSize: pageSize, //每页显示条数
+        title: searchTitle  //搜索关键字
       },
       function(res) {
         console.log(res);
@@ -95,6 +95,21 @@ $(function() {
     // 再调用 getData
     getData();
   });
+
+  //搜索
+  $("#search-btn").click(function(){
+    // 获取搜索关键字
+    var value = $("#search-input").val()
+
+    // 将value 赋值给 searchTitle
+    searchTitle = value
+
+   // 将 pageNum 重置为 1  这个地方如果不重置为1 的话 假如是在第三页搜索 张三 因为张三只有两条数据  第三页根本就没有张三了 因为只有两条数据  所以让他重置为1  就是从第1页开始  哪怕只有一条数据也会显示 
+   pageNum = 1;
+
+    // 发送ajax请求
+    getData();
+  })
 
 
 });
