@@ -8,7 +8,7 @@ const url = 'mongodb://localhost:27017/express'
 
 // 连接
 mongoose.connect(url,
-  { useNewUrlParser: true, useUnifiedTopology: true })
+  { useNewUrlParser: true, useUnifiedTopology: true })  //参数  可以通过这个避免一些广告
 .then(()=>{
   console.log("数据库连接成功")
 })
