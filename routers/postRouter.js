@@ -12,6 +12,8 @@ const {
   show
 } = require("../controllers/postController")
 
+// 引入 auth 中间件
+const auth = require("../middlewares/auth");
 
 // 生成 express.Router的实例
 const router = express.Router();
@@ -45,6 +47,7 @@ router.get("/",index)
  *
  * * @apiParam {String} title 帖子标题
  * @apiParam {String} content 帖子内容
+ *  @apiParam (Headers) {String} Authorization token信息
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
@@ -53,15 +56,16 @@ router.get("/",index)
 
 
 // 创建新的帖子
-router.post("/",create)
+router.post("/",auth,create)  //这里的auth是一个中间件  用来判断有没有登录
 
 /**
  * @api {put} http://localhost:3000/posts/:id   编辑帖子更新帖子
- * @apiName  update
+ * 
  * @apiGroup  Post
  *
- * * @apiParam {String} title 帖子标题
+ * @apiParam {String} title 帖子标题
  * @apiParam {String} content 帖子内容
+ *@apiParam (Headers) {String} Authorization token信息
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
@@ -69,13 +73,15 @@ router.post("/",create)
  */
 
 // 更新帖子
-router.put("/:id",update)
+router.put("/:id",auth,update)
 
 /**
  * @api {delete} http://localhost:3000/posts/:id   删除帖子
- * @apiName delete
- * @apiGroup  Post
  *
+ * @apiGroup  Post
+ * 
+ * 
+ *@apiParam (Headers) {String} Authorization token信息
 
  *
  * @apiSuccess {Number}  code 错误状态码 
@@ -84,7 +90,7 @@ router.put("/:id",update)
  */
 
 // 删除帖子
-router.delete("/:id", remove)
+router.delete("/:id", auth,remove)
 
 /**
  * @api {get} http://localhost:3000/posts/:id   查询帖子详情

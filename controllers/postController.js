@@ -134,49 +134,57 @@ exports.create = async (req, res) => {
    * 2.判断 token 是否存在
    * 
    */
-  const token = req.get("Authorization")
+//   const token = req.get("Authorization")
 
-  if (token) {
-    // 存在 还要去校验token是否有效
-    jsonwebtoken.verify(token, "MYGOD", async (err, data) => {
-      if (err) {
-        // 校验失败
-        res.status(401).send("身份验证失败")
-      } else {
+//   if (token) {
+//     // 存在 还要去校验token是否有效
+//     jsonwebtoken.verify(token, "MYGOD", async (err, data) => {
+//       if (err) {
+//         // 校验失败
+//         res.status(401).send("身份验证失败")
+//       } else {
 
-        // 校验成功
-        //  //获取前端传递过来参数
-        const {
-          title,
-          content
-        } = req.body
+//         // 校验成功
+//         //  //获取前端传递过来参数
+//         const {
+//           title,
+//           content
+//         } = req.body
 
 
-        await PostModel.create(
-         req.body
-        )
-        res.send({
-          code: 0,
-          mas: "成功",
+//         await PostModel.create(
+//          req.body
+//         )
+//         res.send({
+//           code: 0,
+//           mas: "成功",
          
-        })
+//         })
 
 
-      }
+//       }
 
-    })
-  }
-  else{
-    // 不存在
+//     })
+//   }
+//   else{
+//     // 不存在
   
-      res.status(401).send("请携带token");
+//       res.status(401).send("请携带token");
     
-  }
+//   }
+
+
+  // 三：
+   // 获取出 req.auth 中的 userId
+  //  const { title,content,userId } = req.body;
+    const { userId }  = req.auth;
+   req.body.userId =userId
+   await PostModel.create(req.body);
+   res.send({ code: 0, msg: "成功" });
 
 
 
-
-}
+ }
 
 
 
@@ -210,13 +218,9 @@ exports.update = async (req, res) => {
   } = req.params
   // PostModel.updateOne({_id:id },req.body)  这句就是你传什么我就改什么 你没传我就不改
 
-  await PostModel.updateOne({
-    _id: id
-  }, req.body)
-  res.send({
-    code: 0,
-    msg: "成功"
-  })
+  await PostModel.updateMany({ _id: id }, req.body); // { content: '2' }
+  const data = await PostModel.findOne({ _id: id });
+  res.send({ code: 0, msg: "成功", data });
 
 }
 // res.send("更新帖子")
