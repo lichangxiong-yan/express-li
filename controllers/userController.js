@@ -1,5 +1,8 @@
 const UserModel = require("../models/userModel")
 
+//引入jsonwebtoken 身份验证
+const jsonwebtoken = require("jsonwebtoken");
+
 exports.register= async ( req,res)=>{
   //要获取前端传递过来的用户信息
   // const { email , password , nickname } =req.body;
@@ -7,6 +10,7 @@ exports.register= async ( req,res)=>{
 
   // 获取email
   const {email} = req.body;
+
   // 判断是否已经注册过，做一个查询操作。能查找到就是已经注册过
   const data =  await UserModel.findOne({email:email})
   // console.log(data)
@@ -67,9 +71,30 @@ exports.login = async (req,res)=>{
      res.send({ code: -1, msg: "密码不正确" });
      return;
    }
-  else{
-    res.send({code:0,msg:'登录成功'})
-  }
+   
+   //用户可以登录
+  /**
+   * 生成token
+   */
+   const token = jsonwebtoken.sign({
+     // 思考将那些信息写入到token中，一般是用户角色信息、用户Id信息、用户的一些不敏感的信息
+      // 不要写入太多的数据进去。
+
+      userId: data._id,
+      nickname:data.nickname
+
+   },
+   'MYGOD',
+   {
+     expiresIn:"2h"
+   }
+  
+)
+res.send({code:0,msg:'登录成功',token})  //登录成功会这个token信息返回
+
+
+
+  
 
 
 }

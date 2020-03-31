@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema({
     title:{type : String ,required : true},
 
     // 帖子内容
-    content : { type : String , require : true}
+    content : { type : String , required : true}
 
 },{
   //timestamps : true , 会多出两个字段 createdAt
