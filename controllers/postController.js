@@ -192,3 +192,17 @@ exports.remove = async (req,res) =>{
   }
 
   // res.send("删除帖子")
+
+  // 帖子详情
+  exports.show = async (req,res)=>{
+    //获取id
+    const {id } =req.params
+
+    const data = await PostModel.findOne({_id : id})
+
+    res.send({
+      code: 0,
+      msg:"ok",
+      data
+    })
+  }

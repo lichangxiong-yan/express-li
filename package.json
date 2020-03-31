@@ -21,6 +21,7 @@
   "homepage": "https://github.com/lichangxiong-yan/express-li#readme",
   "dependencies": {
     "apidoc": "^0.20.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "mongoose": "^5.9.6"
