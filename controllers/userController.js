@@ -22,6 +22,54 @@ exports.register= async ( req,res)=>{
     res.send({ code: 0, msg: "注册成功" });
   }
 }
-exports.login = (req,res)=>{
-  res.send("用户登录")
+
+// login
+// exports.login = async (req,res)=>{
+//   //获取前端传递过来的  email  和 password
+//   const {email,password} = req.body
+//   //查询数据库，email 与  password 能否匹配数据库中现有的数据
+//   const data = await UserModel.findOne({email,password})
+//   // 判断 data是否有值
+//   if(!data){
+//     res.send({
+//       code : -1,
+//       msg:"用户邮箱或密码不正确"
+//     })
+//   }else{
+//     res.send({
+//       code : 0,
+//       msg:"登录成功",
+//       data:data
+//     })
+//   }
+
+// }
+
+// 登录 login
+exports.login = async (req,res)=>{
+  //获取前端传递过来的  email  和 password
+  const {email,password} = req.body
+  //查询数据库，email 与  password 能否匹配数据库中现有的数据
+  // 根据email 去查询数据库
+  const data = await UserModel.findOne({email})
+  // 判断data是否有值
+  if(!data){
+    res.send({
+      code:-1,
+      msg:"用户名邮箱错误",
+      
+    })
+    return
+  }
+  //还得校验的密码  bcryptjs
+   if(!data.comparePassword(password)) {   //这里会返回一个布尔类型的值 
+     // 校验不通过
+     res.send({ code: -1, msg: "密码不正确" });
+     return;
+   }
+  else{
+    res.send({code:0,msg:'登录成功'})
+  }
+
+
 }
