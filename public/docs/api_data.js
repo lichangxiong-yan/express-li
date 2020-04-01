@@ -1,5 +1,48 @@
 define({ "api": [
   {
+    "type": "delete",
+    "url": "http://localhost:3000/posts/:id",
+    "title": "删除帖子",
+    "group": "Post",
+    "parameter": {
+      "fields": {
+        "Headers": [
+          {
+            "group": "Headers",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>token信息</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误状态码</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误消息</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routers/postRouter.js",
+    "groupTitle": "Post",
+    "name": "DeleteHttpLocalhost3000PostsId"
+  },
+  {
     "type": "get",
     "url": "http://localhost:3000/posts/:id",
     "title": "查询帖子详情",
@@ -20,6 +63,13 @@ define({ "api": [
             "optional": false,
             "field": "msg",
             "description": "<p>错误消息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>更新完成之后的帖子信息</p>"
           }
         ]
       }
@@ -159,6 +209,13 @@ define({ "api": [
             "optional": false,
             "field": "msg",
             "description": "<p>错误消息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>更新完成之后的帖子信息</p>"
           }
         ]
       }
@@ -192,49 +249,6 @@ define({ "api": [
             "description": "<p>帖子内容</p>"
           }
         ],
-        "Headers": [
-          {
-            "group": "Headers",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>token信息</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "code",
-            "description": "<p>错误状态码</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "msg",
-            "description": "<p>错误消息</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routers/postRouter.js",
-    "groupTitle": "Post"
-  },
-  {
-    "type": "delete",
-    "url": "http://localhost:3000/posts/:id",
-    "title": "删除帖子",
-    "name": "delete",
-    "group": "Post",
-    "parameter": {
-      "fields": {
         "Headers": [
           {
             "group": "Headers",

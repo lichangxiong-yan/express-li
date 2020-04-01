@@ -11,7 +11,7 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin">
+  <form class="form-signin" action="javascript:;">
     <img class="mb-4" src="./assets/img/bootstrap-solid.svg" alt="" width="72" height="72" />
 
     <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
@@ -22,15 +22,20 @@
     <label class="sr-only" for="inputPassword">Password</label>
     <input class="form-control" id="inputPassword" type="password" placeholder="Password" required="" />
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
+    <button id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit">
       Login
     </button>
 
     <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
   </form>
 
+
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/login.js"></script>
 </body>
 
 </html>

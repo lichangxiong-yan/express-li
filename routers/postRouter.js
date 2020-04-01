@@ -69,6 +69,7 @@ router.post("/",auth,create)  //这里的auth是一个中间件  用来判断有
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
+ * @apiSuccess {Object}   data  更新完成之后的帖子信息
  * 
  */
 
@@ -87,6 +88,7 @@ router.put("/:id",auth,update)
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
  * 
+ * 
  */
 
 // 删除帖子
@@ -101,6 +103,7 @@ router.delete("/:id", auth,remove)
  *
  * @apiSuccess {Number}  code 错误状态码 
  * @apiSuccess {String}   msg  错误消息
+ * @apiSuccess {Object}   data  更新完成之后的帖子信息
  * 
  */
 router.get("/:id",show)

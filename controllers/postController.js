@@ -52,9 +52,14 @@ exports.index = async (req, res) => {
   //          /`${title}`/    /"张三"/
 
   //查询数据库 Model.find().skip((pageNum -1 ) * pageSize).limit(pageSize)
+
+    // populate(字段名, 字段选择) 中文意思叫做填充，接受的 userId 是 PostModel 的 schema 中定义的一个字段名字
+  // 并且这个 userId 字段关联的是 user 模型。
+  // 所以这块会将 userId 填充为 对应的用户信息
   const data = await PostModel.find({
       title: new RegExp(title)
     })
+     .populate("userId", ["nickname", "email"])//第一个参数为 关联的字段 第二个参数为显示的值
     .skip((pageNum - 1) * pageSize)
     .limit(pageSize)
 
@@ -281,10 +286,10 @@ exports.show = async (req, res) => {
     id
   } = req.params
 
-  const data = await PostModel.findOne({
-    _id: id
-  })
-
+const data = await PostModel.findOne({ _id: id }).populate("userId", [
+  "nickname",
+  "email"
+]); //做一个填充
   res.send({
     code: 0,
     msg: "ok",
