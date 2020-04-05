@@ -8,6 +8,8 @@ $(function() {
 
   $("#btn-submit").click(function() {
     var formData = new FormData();
+
+    // $("#myFile")[0].files[0]这个是拿到文件名对象  avatar这里指的是头像
     formData.append("avatar", $("#myFile")[0].files[0]);
 
     $.ajax({
