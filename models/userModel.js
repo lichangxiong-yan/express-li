@@ -26,7 +26,11 @@ const userSchema = new mongoose.Schema({
      * 用户昵称
      * default ，设置默认值，没有传递这个字段时，就使用默认值
      */
-  nickname : { type : String , default: ""}
+  nickname : { type : String , default: ""},
+
+  // 用户头像地址 ,一个完整的url地址
+  avatar:{ type : String , default:"http://localhost:3000/assets/img/avatar.png"} 
+
 },
 {
   timestamps : true

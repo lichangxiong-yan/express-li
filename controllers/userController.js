@@ -1,5 +1,8 @@
 const UserModel = require("../models/userModel")
 
+const  path = require('path')
+const fs =require('fs')
+
 //引入jsonwebtoken 身份验证
 const jsonwebtoken = require("jsonwebtoken");
 
@@ -86,7 +89,7 @@ exports.login = async (req,res)=>{
    },
    'MYGOD',
    {
-     expiresIn:"2h"
+     expiresIn:"100h"
    }
   
 )
@@ -96,5 +99,60 @@ res.send({code:0,msg:'登录成功',token})  //登录成功会这个token信息�
 
   
 
+
+}
+
+exports.getInfo = async (req,res) =>{
+  // 1.获取用户  id  通过 req.auth
+  const { userId } = req.auth;
+
+  // 2.查询数据库即可
+
+  // {password : 0} 是将 password 字段在返回中剔除掉 就是不让密码返回
+   const data = await UserModel.findOne({ _id : userId},{password:0});
+
+  // 3.响应
+  res.send({
+    code:0,
+    msg:"ok",
+    data
+  })
+}
+
+exports.update = async (req, res) =>{
+  //1.获取用户 id
+  const {userId} = req.auth;
+
+  // 定义一个后续来修改的对象
+
+  let updateData = {}
+  // 2.获取头像的信息
+  // 判断是否有传递头像过来
+  if(req.file.path){
+  // 2.1 定义 newFilename 与 newFilePat
+    const newFilename = `${req.file.filename}-${req.file.originalname}`
+    const newFilepath = path.resolve(__dirname,'../public',newFilename)
+
+    // 2.2读文件   读的就是这个req.file.path
+    const fileData =  fs.readFileSync(req.file.path)
+
+    // 2.3写文件  第一个参数就是写入的路径 第二个参数就是写入的文件
+    fs.writeFileSync(newFilepath,fileData)
+
+    // 2.4 给 updataData 中设置 avatar   newFilename文件的名字
+    updateData.avatar = `http://localhost:3000/${newFilename}`
+  }
+
+  // 3.修改数据库
+  // 改
+  await UserModel.updateOne({ _id : userId } , updateData)
+  // 查
+  const data = await UserModel.findOne({_id : userId },{password : 0})
+  // 4.响应给前端
+  res.send({
+    code : 0,
+    msg:'修改成功',
+    data
+  })
 
 }

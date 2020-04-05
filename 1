@@ -2,3 +2,7 @@ ${moment( item.updatedAt).format('YYYY-MM-DD:hh:mm:ss')}  创建的时间格式�
  await PostModel.find().countDocuments()  这里的 countDocuments 可以算出这个数据库中有几条数据  因为数据都是异步的操作 所以要用 await  让代码看起来向同步执行
 
   <a class="page-link" href="javascript:;">    这是可以阻止a默认行为 就不能跳转了
+
+    form 表单有默认提交的行为，
+      我们这里是通过 ajax 来做搜索。所以需要将 form 表单默认行为给阻止
+      action="javascript:;"

@@ -62,7 +62,7 @@ function needLogin() {
 /**
  * 渲染右侧 navbar 的
  */
- function renderNavbar() {
+ async  function renderNavbar() {
   // 判断是否有登录状态，去控制 navbar 的右侧显示
   // 登录成功之后我会将 token 信息写入到 Cookie 中，所以这块就从 Cookie 中获取 token 来判断是否登录了。
   // 操作 Cookie 懒得自己去封装 Cookie 的函数。这边直接采用 js-cookie 这个插件
@@ -74,7 +74,9 @@ function needLogin() {
  // 获取用户的基本信息，这个操作可能在前端会多次使用，所以不要再这里直接写死，而是去抽离一个公共方法
 //  const res = await getUserInfo();
 
-
+    // 获取用户的基本信息，这个操作可能在前端会多次使用，所有不要在这里直接写死，而是去抽离一个公共的方法
+    //如果登入了就直接调用这个方法 可以获取用户的基本信息
+    const res =await getUserInfo()
 
     html = `
     <li class="nav-item">
@@ -85,7 +87,7 @@ function needLogin() {
 
     <li class="nav-item dropdown">
       <a href="javascript:;" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown">
-        <img src="/assets/img/avatar.png" class="rounded" width="30" height="30" alt="" />
+        <img src="${res.data.avatar}" class="rounded" width="30" height="30" alt="" />
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/user/settings/profile/edit.html">Profile</a>
@@ -122,8 +124,27 @@ function needLogin() {
 }
 
 
-
-
+//获取当前登录用户的基本信息
+function getUserInfo(){
+  return new Promise((resolve,rejext)=>{
+      // 请求
+      $.ajax({
+        // 请求地址
+        url:"http://localhost:3000/getInfo",
+        // 请求方式
+        type:"GET",
+        // 参数  请求头传参数
+        headers:{
+          Authorization: Cookies.get('token')
+        },
+        success:function(res){
+          resolve(res)
+        }
+      })
+  })
+ 
+  
+}
 $(function() {
   // 默认调用一次
   renderNavbar();

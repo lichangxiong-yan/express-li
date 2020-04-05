@@ -285,6 +285,56 @@
     "groupTitle": "Post"
   },
   {
+    "type": "get",
+    "url": "http://localhost:3000/getInfo",
+    "title": "获取当前用户的基本信息",
+    "group": "用户",
+    "parameter": {
+      "fields": {
+        "Headers": [
+          {
+            "group": "Headers",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>token信息</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误状态码.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误消息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>当前用户的基本信息</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routers/userRouter.js",
+    "groupTitle": "用户",
+    "name": "GetHttpLocalhost3000Getinfo"
+  },
+  {
     "type": "post",
     "url": "http://localhost:3000/login",
     "title": "用户登录",
@@ -390,5 +440,64 @@
     "filename": "routers/userRouter.js",
     "groupTitle": "用户",
     "name": "PostHttpLocalhost3000Register"
+  },
+  {
+    "type": "put",
+    "url": "http://localhost:3000/users/update",
+    "title": "修改用户的基本信息",
+    "group": "用户",
+    "parameter": {
+      "fields": {
+        "body": [
+          {
+            "group": "body",
+            "type": "Object",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>要修改的头像</p>"
+          }
+        ],
+        "Headers": [
+          {
+            "group": "Headers",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>token信息</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误状态码.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误消息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>修改完成之后当前用户的基本信息</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routers/userRouter.js",
+    "groupTitle": "用户",
+    "name": "PutHttpLocalhost3000UsersUpdate"
   }
 ]
